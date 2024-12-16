@@ -7,6 +7,8 @@ const authentication = require('./src/authentication');
 const product = require('./src/product');
 const category = require('./src/category');
 const warehouse = require('./src/warehouse');
+const order = require('./src/order');
+const orderItem = require('./src/order_item')
 
 const app = express();
 const port = 3333;
@@ -107,6 +109,40 @@ app.delete('/warehouses/:id', middleware, (req, res) => {
 
 app.get('/warehouses', middleware, (req, res) => {
     return warehouse.getWarehouses(req, res, db);
+});
+
+// Đơn hàng
+app.post('/orders', middleware, (req, res) => {
+    return order.createOrder(req, res, db);
+});
+
+app.put('/orders/:id', middleware, (req, res) => {
+    return order.editOrder(req, res, db);
+});
+
+app.delete('/orders/:id', middleware, (req, res) => {
+    return order.deleteOrder(req, res, db);
+});
+
+app.get('/orders', middleware, (req, res) => {
+    return order.getOrders(req, res, db);
+});
+
+// Chi tiết đơn hàng
+app.post('/order_items', middleware, (req, res) => {
+    return orderItem.createOrderItem(req, res, db);
+});
+
+app.put('/order_items/:id', middleware, (req, res) => {
+    return orderItem.editOrderItem(req, res, db);
+});
+
+app.delete('/order_items/:id', middleware, (req, res) => {
+    return orderItem.deleteOrderItem(req, res, db);
+});
+
+app.get('/order_items', middleware, (req, res) => {
+    return orderItem.getOrderItems(req, res, db);
 });
 //Khởi động server
 app.listen(port, () => {
