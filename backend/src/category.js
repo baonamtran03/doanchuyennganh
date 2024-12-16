@@ -77,3 +77,10 @@ const getCategories = (req, res, db) => {
         res.json(results);
     });
 };
+
+module.exports = {
+    createCategory,
+    editCategory,
+    deleteCategory,
+    getCategories
+};

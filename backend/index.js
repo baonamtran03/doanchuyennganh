@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 // API
 const authentication = require('./src/authentication');
 const product = require('./src/product');
-//
+const category = require('./src/category');
+const warehouse = require('./src/warehouse');
 
 const app = express();
 const port = 3333;
@@ -72,9 +73,7 @@ app.get('/products', (req, res) => {
     return product.getProducts(req, res, db);
 });
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+
 
 //DANH MỤC
 app.post('/categories', middleware, (req, res) => {
@@ -93,6 +92,23 @@ app.get('/categories', middleware, (req, res) => {
     return category.getCategories(req, res, db);
 });
 
+// KHO
+app.post('/warehouses', middleware, (req, res) => {
+    return warehouse.createWarehouse(req, res, db);
+});
+
+app.put('/warehouses/:id', middleware, (req, res) => {
+    return warehouse.editWarehouse(req, res, db);
+});
+
+app.delete('/warehouses/:id', middleware, (req, res) => {
+    return warehouse.deleteWarehouse(req, res, db);
+});
+
+app.get('/warehouses', middleware, (req, res) => {
+    return warehouse.getWarehouses(req, res, db);
+});
+//Khởi động server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
